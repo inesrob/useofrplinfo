@@ -3,7 +3,7 @@
     which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!-- One method to get references from the online citation libraries.
-    There has to be one entity for each item to be referenced.
+    There has to be one entity for each item to be referenced. 
     An alternate method (rfc include) is described in the references. -->
 
 <!ENTITY RFC6550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6550.xml">
@@ -11,8 +11,8 @@
 <!ENTITY RFC6554 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6554.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC7102 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7102.xml">
-<!ENTITY I-D.ietf-6man-default-iids SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6man-default-iids.xml">
-<!ENTITY I-D.thubert-6lo-rpl-nhc SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.thubert-6lo-rpl-nhc.xml">
+
+<!--<!ENTITY I-D.thubert-6lo-rpl-nhc SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.thubert-6lo-rpl-nhc.xml"> -->
 
 <!--<!ENTITY I-D.ietf-opsawg-coman-use-cases SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-opsawg-coman-use-cases.xml"> -->
 
@@ -20,7 +20,7 @@
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
-<!-- For a complete list and description of processing instructions (PIs),
+<!-- For a complete list and description of processing instructions (PIs), 
     please see http://xml.resource.org/authoring/README.html. -->
 <!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
     (Here they are set differently than their defaults in xml2rfc v1.32) -->
@@ -36,29 +36,29 @@
 <!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
 <?rfc sortrefs="yes" ?>
 <!-- sort the reference entries alphabetically -->
-<!-- control vertical white space
+<!-- control vertical white space 
     (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-wg-roll-caseofuserplinfo-01" ipr="trust200902">
+<rfc category="info" docName="draft-robles-roll-useofrplinfo-00" ipr="trust200902">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
-    you can add the attributes updates="NNNN" and obsoletes="NNNN"
+    you can add the attributes updates="NNNN" and obsoletes="NNNN" 
     they will automatically be output with "(if approved)" -->
 
  <!-- ***** FRONT MATTER ***** -->
 
  <front>
-   <!-- The abbreviated title is used in the page header - it is only necessary if the
+   <!-- The abbreviated title is used in the page header - it is only necessary if the 
         full title is longer than 39 characters -->
 
-  <title abbrev="Useof6553">When to use RFC 6553, 6554</title>
+  <title abbrev="Useof6553">When to use RFC 6553, 6554 and IPv6-in-IPv6</title>
 
-  <author fullname="Robles M. Ines" initials="M.I." surname="Robles">
+  <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
      <organization abbrev="Ericsson">Ericsson</organization>
     <address>
      <postal>
@@ -70,19 +70,21 @@
       <email>maria.ines.robles@ericsson.com</email>
     </address>
   </author>
-
-  <author initials='M.R.' surname="Richardson" fullname='Michael Richardson'>
-   <organization abbrev="Sandelman">Sandelman</organization>
-    <address>
-     <postal>
-       <street></street>
-       <city></city>
-       <code></code>
-       <country></country>
-     </postal>
-      <email></email>
-    </address>
-
+ 
+  <author initials="M." surname="Richardson" fullname="Michael C. Richardson">
+    <organization abbrev="SSW">Sandelman Software Works</organization>
+     <address>
+	<postal>
+	<street>470 Dawson Avenue</street>
+	<city>Ottawa</city>
+	<region>ON</region>
+	<code>K1Z 5V7</code>
+	<country>CA</country>
+	</postal>
+	<email>mcr+ietf@sandelman.ca</email>
+	<uri>http://www.sandelman.ca/</uri>	
+     </address>
+	
   </author>
 
   <date year="2015" />
@@ -97,8 +99,8 @@
 
    <abstract>
       <t>
-   This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the
-   bases to help defining the compression of RPL routing information in LLN environments.
+	This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the 
+        bases to help defining the compression of RPL routing information in LLN environments. 
      </t>
    </abstract>
  </front>
@@ -106,20 +108,19 @@
 <middle>
   	<section title="Introduction">
 	     <t>
-		RPL <xref target="RFC6550"/> defines RPL Option to transmit routing information. RFC 6553 <xref target="RFC6553"/> defines how to transmit in a Hop-By-Hop Option RPL Information,such as 			information to avoid and detect loops. RFC 6554 <xref target="RFC6554"/> defines the use of Extension header for Source Routing.
+		RPL <xref target="RFC6550"/> is a routing protocol for constrained networks. RFC 6553 <xref target="RFC6553"/> defines the "RPL option", carried within the IPv6 Hop-by-Hop header to  			quickly identify inconsistencies in the routing topology. RFC 6554 <xref target="RFC6554"/> defines the "RPL Source Route Header", an IPv6 Extension Header to deliver datagrams within a 			RPL routing domain.
 	    </t>
 	    <t>
-		Several discussions in ML took place focusing in the definition how to compress RPL Information in constrained environments,
-		the Conclusion was that there is a need to define how to use RFC 6553, RFC6554 and tunneling (IP-in-IP) to be able to set the correct environment to define the compression on these 			techniques.
-		ROLL Virtual Interim Meeting (2014) concluded that a document stating the use of this Extension headers would be useful for further proccessing on it, e.g. to compress them.
+		Several discussions in the ROLL/6lo/6Tisch Mailing Lists took place focusing in the definition of how to compress RPL Information in constrained environment. 
+		ROLL Virtual Interim Meeting (02-2015) concluded that there is a need to define how to use <xref target="RFC6553"/>, <xref target="RFC6554"/> and IP-in-IP encapsulation to be able to set 			the correct environment for compression.
 	    </t>
      </section>
 
-     <section title="Terminology and Requirements Language">
+     <section title="Terminology and Requirements Language">     
         <t>
            The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
            "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   	   document are to be interpreted as described
+   	   document are to be interpreted as described 
 	   in <xref target="RFC2119">RFC 2119</xref>.
         </t>
         <t>
@@ -127,20 +128,20 @@
         </t>
 
        </section>
+     
 
-
-       <section title="sample/reference topology">
+       <section title="Sample/reference topology">
         	<t>
-		In a typical topology we found 6LBR (6LoWPAN Border Router), 6lR (6LoWPAN Router) and 6LN (6LoWPAN Node) as leaf connected in a DODAG (Destination Oriented Directed Acyclic Graph)
-		Between these entities messages such as DIS, DIO and DAO are transmitted.
-		RPL defines the RPL Control message as an ICMPv6 information message with a Type of 155.
-		RPL supports two modes of Downward traffic: Storing, it is fully stateful or Non-Storing it is fully source routed.  Any given RPL Instance is either storing or non-storing.
+		A RPL network is composed of a 6LBR (6LoWPAN Border Router), 6LR (6LoWPAN Router) and 6LN (6LoWPAN Node) as leaf logically organized in a DODAG structure (Destination Oriented 		Directed Acyclic Graph).
+		RPL defines the RPL Control message, a new ICMPv6 message with Type 155. DIS, DIO and DAO messages are all RPL Control messages but with different Code values.
+		RPL supports two modes of Downward traffic: Storing, it is fully stateful or Non-Storing it is fully source routed. A RPL Instance is either fully storing or fully
+		non-storing, i.e. a RPL Instance with a combination of storing and non-storing nodes is not supported with the current specifications.
      		</t>
         	<t>
-	     <figure title="RPL Stack"
+	     <figure title="RPL Stack."
 
 		        anchor="fig_RPLStack" align="center">
-		<artwork><![CDATA[
+		<artwork><![CDATA[            
 +--------------+
 | Upper Layers |
 |              |
@@ -160,142 +161,144 @@
 |   PHY-MAC    |
 |              |
 +--------------+
-
-
+                           
+ 
 		]]></artwork></figure>
 		 </t>
-	       <t>
-	     <figure title="A reference RPL Topology"
+	       <t> 
+	     <figure title="A reference RPL Topology."
 		        anchor="fig_CommonTopology" align="center">
-		<artwork><![CDATA[
-                                 +---------+
-                             +---+Internet |
-                             |   +---------+
-                             |
-                        +----+--+
-                        |DODAG  |
-              +---------+Root   +----------+
-              |         |6LBR   |          |
-              |         +----+--+          |
-              |              |             |
-              |              |             |
-              |              |             |
-        +-----+-+         +--+---+      +--+---+
-        |6LR    |         |      |      |      |
-  +-----+       |         |      |      |      |
-  |     |       |         |      |      |      +------+
-  |     +-----+-+         +-+----+      +-+----+      |
-  |           |             |             |           |
-  |           |             |             |           |
-  |           |             |             |           |
+		<artwork><![CDATA[ 
+
+
+
+
+
+
+
+
+
+
+
+           
+                                 +---------+             
+                             +---+Internet |             
+                             |   +---------+             
+                             |                           
+                        +----+--+                        
+                        |DODAG  |                        
+              +---------+Root   +----------+             
+              |         |6LBR   |          |             
+              |         +----+--+          |             
+              |              |             |             
+              |              |             |             
+              |              |             |             
+        +-----+-+         +--+---+      +--+---+         
+        |6LR    |         |      |      |      |         
+  +-----+       |         |      |      |      |         
+  |     |       |         |      |      |      +------+  
+  |     +-----+-+         +-+----+      +-+----+      |  
+  |           |             |             |           |  
+  |           |             |             |           |  
+  |           |             |             |           |  
 +-+---+     +-+---+      +--+--+       +- --+     +---+-+
 |Leaf |     |     |      |     |       |    |     |     |
 |6LN  |     |     |      |     |       |    |     |     |
 +-----+     +-----+      +-----+       +----+     +-----+
-
+ 
 		]]></artwork></figure>
 		 </t>
         	<t>
-		In different scenarios the use of RFC 6553, RFC 6554 and tunneling can take place:
+		I would say that a combination of RFC6553, RFC6554 and IP-in-IP encapsulation is used for the following traffic flows:
         	</t>
         	<t>
 		-Flow from leaf to root
-        	</t>
-        	<t>
 		-Flow from leaf to Internet
-        	</t>
-        	<t>
 		-Flow from leaf to leaf
-        	</t>
-        	<t>
 		-Flow from Internet to leaf
-        	</t>
-        	<t>
-		-Flow from leaf to root
-        	</t>
+		-Flow from root to leaf
+        	</t>		 
        </section>
        <section title="Example flow from leaf to root">
         	<t>
-		A leaf node generates DAO and DIS messages and in general does not accept them.
-		Additionally, this kind of nodes accepts DIO messages, but in general do not generate them.
-		(In inconsistency A leaf node generates DIO with infinite rank, to fix it).
-	       	</t>
+ 		As states in Section 16.2 of <xref target="RFC6550"/>  a leaf node does not generally issue DIO messages, a leaf node accepts DIO messages
+		(In inconsistency a leaf node generates DIO with infinite rank, to fix it). It may issue DAO and DIS messages though it generally ignores DAO and DIS messages.
+		</t>
 
         	<section title="Non-storing">
 		        <t>
-			In non-storing in this case the leaf node uses Hop-By-Hop option (RFC 6553) to indicate the routing information to send messages to the DODAG root,
+			In non-storing mode the leaf node uses Hop-By-Hop option (RFC 6553) to indicate the routing information to send messages to the DODAG root, 
 			this message is going to be analyzed in each node until arrive the DODAG root.
 		        </t>
 		        <t>
-			RFC 6554 was created to strictly send information between RPL routers in the same RPL routing domain. How it would be in 6554?
+			RFC 6554 was created to strictly send information between RPL routers in the same RPL routing domain. TODO: How it would be in 6554?
 		        </t>
 		        <t>
 			TBD: Tunneling is necessary in case that there is information to send outside RPL Domain and other cases?
-        		</t>
-	      		 <t>
+        		</t> 
+	      		 <t> 
 	     		<figure title=" From leaf to Root - Non-Storing Mode "
 		        anchor="fig_leaf2rootNstoring" align="center">
-			<artwork><![CDATA[
-   +------+
-   |      |
-   | 6LBR |
-   |      |
-   +---+--+
-       |
-       |  LoWPAN_HC
-       |  Route= 6LN-6LR-6LBR
-^      |
-|  +---+-+
-|  |     |
-|  | 6LR |
-|  |     |
-|  +--+--+
-|     |   LoWPAN_HC
-|     |   Route= 6LN-6LR-6LBR
-|     |
-+     |
-   +--+--+
-   | 6LN |
-   |     |
-   |     |
-   +-----+
+			<artwork><![CDATA[            
+   +------+                          
+   |      |                          
+   | 6LBR |                          
+   |      |                          
+   +---+--+                          
+       |                             
+       |  LoWPAN_HC                  
+       |  Route= 6LN-6LR-6LBR              
+^      |                             
+|  +---+-+                           
+|  |     |                           
+|  | 6LR | 
+|  |     |                           
+|  +--+--+                           
+|     |   LoWPAN_HC                  
+|     |   Route= 6LN-6LR-6LBR              
+|     |                              
++     |                              
+   +--+--+                           
+   | 6LN |                           
+   |     |                           
+   |     |                           
+   +-----+                           
 			]]></artwork></figure>
 			 </t>
-
+           		
        		</section>
             	<section title="Storing">
         		<t>
-			IP6 6553{X,Y] ?ipip payload.
-			In storing mode is suitable the use of RFC 6553 to send RPL Information through HBH field checking the routing table to find out where to send the message.
+			In storing mode is suitable the use of RFC 6553 to send RPL Information through HBH field checking the routing table to find out where to send the message. 
 			It may include IP-in-IP encapsulation to transmit information not related with the RPL domain.
         		</t>
-	      		 <t>
+	      		 <t> 
 	    		 <figure title=" From leaf to Root - Storing Mode "
 		        anchor="fig_leaf2rootstoring" align="center">
-			<artwork><![CDATA[
-   +------+
-   |      |
-   | 6LBR |
-   |      |
-   +---+--+
-       |
-       |  LoWPAN_HC
-       |  0x63|HBH Data
-^      |
-|  +---+-+
-|  |     |
+			<artwork><![CDATA[            
+   +------+                          
+   |      |                          
+   | 6LBR |                          
+   |      |                          
+   +---+--+                          
+       |                             
+       |  LoWPAN_HC                  
+       |  0x63|HBH Data              
+^      |                             
+|  +---+-+                           
+|  |     |                           
 |  | 6LR | 6LR check in routing table
-|  |     |
-|  +--+--+
-|     |   LoWPAN_HC
-|     |   0x63|HBH Data
-|     |
-+     |
-   +--+--+
-   | 6LN |
-   |     |
-   |     |
-   +-----+
+|  |     |                           
+|  +--+--+                           
+|     |   LoWPAN_HC                  
+|     |   0x63|HBH Data              
+|     |                              
++     |                              
+   +--+--+                           
+   | 6LN |                           
+   |     |                           
+   |     |                           
+   +-----+                           
 			]]></artwork></figure>
 			 </t>
 
@@ -307,16 +310,16 @@
         	</t>
             	<section title="Non-storing">
         		<t>
-			In this case the IP-in-IP encapsulation should take place to send information not related to the RPL domain inside of the RPL domain.
+			In this case the IP-in-IP encapsulation should take place to send information not related to the RPL domain inside of the RPL domain. 
 		        </t>
 		        <t>
-			RPL information from RFC 6553 should not go out to Internet. The router sould take this information out before send the packet to Internet.
+			RPL information from RFC 6553 should not go out to Internet. The router should take this information out before send the packet to Internet. 
 			The HBH Option is going to be analyzed in each node to the root.
 		        </t>
 		        <t>
 			Related to RFC 6554 the Source Header route is added and removed by DODAG root. However, RFC 6554 was created to strictly send information between
 			RPL routers in the same RPL routing domain. How it would be in 6554?
-			</t>
+			</t>          		
        		</section>
         	<section title="Storing">
         		<t>
@@ -328,8 +331,8 @@
        		<t>
 		can leafs insert appropriate headers, without ipip?
 		In <xref target="RFC6550"/> RPL allows a simple one-hop P2P optimization for both storing and non-storing networks.
-		A node may send a P2P packet destined to a one-hop neighbor direclty to that node. Section 9 in <xref target="RFC6550"/>.
-       		</t>
+		A node may send a P2P packet destined to a one-hop neighbor directly to that node. Section 9 in <xref target="RFC6550"/>.
+       		</t>       		
             	<section title="Traditional storing">
         		<t>
 			The route go through an ancestor that knows the route to the destination, using HBH <xref target="RFC6553"/> to carry RPL Information.
@@ -342,8 +345,8 @@
        		</section>
             	<section title="P2P non-storing">
         		<t>
-			(p2p storing? I think it does not exist)
-
+			(p2p storing? TBD)
+	
 		        </t>
        		</section>
        </section>
@@ -375,7 +378,7 @@
 			DODAG root is going to add the source route header <xref target="RFC6554"/>
         		</t>
        		</section>
-       </section>
+       </section>	     
 	<section title="IANA Considerations">
 	   <t>
 	      There are no IANA considerations related to this document.
@@ -384,17 +387,18 @@
 
 <section anchor="Security" title="Security Considerations">
    <t>
- TBD.
+ TODO.
   </t>
 </section>
 
-<section anchor="Acknowledgements" title="Acknowledgements">
+<section anchor="Acknowledgments" title="Acknowledgments">
    <t>
-      TBD
+   This work is partially funded by the FP7 Marie Curie Initial Training
+   Network (ITN) METRICS project (grant agreement No.  607728)
    </t>
 
- </section>
-
+ </section> 
+   
 </middle>
 
  <back>
@@ -413,20 +417,18 @@
 
    <references title="Normative References">
 
-
+        
      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-
+    
      &RFC6553;
      &RFC6554;
      &RFC2119;
-     &RFC7102;
+     &RFC6550;
    </references>
 
    <references title="Informative References">
    <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-      &RFC6550;
-   &I-D.ietf-6man-default-iids;
-   &I-D.thubert-6lo-rpl-nhc;
+     &RFC7102;
    </references>
 
    <!-- Change Log
